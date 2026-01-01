@@ -145,7 +145,7 @@ return_to_menu = True
 
 while True:
     if return_to_menu:
-        # clear_screen()
+        clear_screen()
         show_menu()
 
     option = get_option()
