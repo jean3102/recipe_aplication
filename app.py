@@ -54,6 +54,10 @@ def list_files(path):
 
 
 def read_file(path):
+
+    if path is None:
+        return
+
     try:
         with path.open(encoding="utf-8") as file:
             print("=== RECIPE CONTENT ===")
@@ -80,6 +84,11 @@ def create_file(path):
 def read_recipe():
     category = select_from_list(list_categories(), "Select a category: ")
     files = list_files(BASE_PATH / category)
+
+    if not files:
+        print("❌ No recipes found in this category.")
+        return None
+
     recipe = select_from_list(files, "Select a recipe: ")
     return BASE_PATH / category / f"{recipe}.txt"
 
@@ -102,6 +111,9 @@ def create_category():
 
 def delete_recipe():
     path_file = read_recipe()
+    if path_file is None:
+        return
+
     try:
         path_file.unlink()
         print("✅ File deleted successfully")
@@ -145,7 +157,7 @@ return_to_menu = True
 
 while True:
     if return_to_menu:
-        # clear_screen()
+        clear_screen()
         show_menu()
 
     option = get_option()
